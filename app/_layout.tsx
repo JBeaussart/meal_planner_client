@@ -19,10 +19,9 @@ export default function RootLayout() {
     <ThemeProvider value={DefaultTheme}>
       <AuthProvider>
         <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="login" options={{ title: 'Connexion', headerShown: false }} />
-          <Stack.Screen name="recipes/index" options={{ title: 'Mes Recettes', headerShown: false }} />
-          <Stack.Screen name="recipes/[id]" options={{ title: 'Recette' }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="dark" />

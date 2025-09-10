@@ -39,6 +39,7 @@ export const endpoints = {
   login: '/api/v1/users/sign_in',
   logout: '/api/v1/users/sign_out',
   recipes: '/api/v1/recipes',
+  scheduled_recipes: '/api/v1/scheduled_recipes',
 }
 
 // Helpers to handle JSON:API format returned by server

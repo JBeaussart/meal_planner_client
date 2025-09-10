@@ -59,7 +59,7 @@ export default function RecipesListScreen() {
         : `${BASE_URL}${item.attrs.image_url}`
       : undefined
     return (
-      <Pressable style={styles.card} onPress={() => router.push(`/recipes/${item.id}`)}>
+      <Pressable style={styles.card} onPress={() => router.push(`/(tabs)/recipes/${item.id}`)}>
         <View style={styles.imageWrapper}>
           {imgUri ? (
             <Image source={{ uri: imgUri }} style={styles.image} />

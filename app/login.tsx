@@ -14,7 +14,7 @@ export default function LoginScreen() {
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    if (token) router.replace('/recipes')
+    if (token) router.replace('/(tabs)/planning')
   }, [token, router])
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function LoginScreen() {
     setSubmitting(true)
     const ok = await signIn(email, password)
     setSubmitting(false)
-    if (ok) router.replace('/recipes')
+    if (ok) router.replace('/(tabs)/planning')
   }
 
   return (
@@ -103,4 +103,3 @@ const styles = StyleSheet.create({
   submit: { marginTop: 10 },
   help: { textAlign: 'center', marginTop: 16 },
 })
-

@@ -10,7 +10,7 @@ export default function Index() {
 
   useEffect(() => {
     if (loading) return
-    if (token) router.replace('/recipes')
+    if (token) router.replace('/(tabs)/planning')
     else router.replace('/login')
   }, [loading, token, router])
 
