@@ -18,6 +18,12 @@ const MAPPING = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
+  'heart.fill': 'favorite',
+  // Chef hat (SF Symbol) → closest Material icon fallback
+  'chefhat.fill': 'restaurant',
+  // Lists
+  'list.bullet': 'format-list-bulleted',
+  'list.number': 'format-list-numbered',
 } as IconMapping;
 
 /**
