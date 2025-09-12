@@ -13,6 +13,7 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
+  Platform,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -206,6 +207,37 @@ export default function PlanningTabIndex() {
     );
   }, [items, loading]);
 
+  const handleResetPress = async () => {
+    try {
+      console.log('[Planning] Reset button pressed');
+      const confirm = await (async () => {
+        if (Platform.OS === 'web' && typeof window !== 'undefined' && window.confirm) {
+          return window.confirm('Supprimer toutes les planifications de la semaine ?');
+        }
+        return new Promise<boolean>((resolve) => {
+          Alert.alert(
+            'Réinitialiser le planning',
+            'Supprimer toutes les planifications de la semaine ?',
+            [
+              { text: 'Annuler', style: 'cancel', onPress: () => resolve(false) },
+              { text: 'Réinitialiser', style: 'destructive', onPress: () => resolve(true) },
+            ]
+          );
+        });
+      })();
+      if (!confirm) return;
+      await api.delete(`${endpoints.scheduled_recipes}/clear`);
+      await fetchData();
+    } catch (e) {
+      console.error('[Planning] Reset failed', e);
+      if (Platform.OS === 'web' && typeof window !== 'undefined' && window.alert) {
+        window.alert("Impossible de réinitialiser le planning pour le moment.");
+      } else {
+        Alert.alert('Échec', "Impossible de réinitialiser le planning pour le moment.");
+      }
+    }
+  };
+
   return (
     <AuthGate>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
@@ -214,31 +246,8 @@ export default function PlanningTabIndex() {
             <ThemedText type="title" style={styles.headerTitle}>
               Planning
             </ThemedText>
-            <Pressable
-              onPress={() => {
-                Alert.alert(
-                  "Vider tout",
-                  "Supprimer toutes les planifications ?",
-                  [
-                    { text: "Annuler", style: "cancel" },
-                    {
-                      text: "Vider",
-                      style: "destructive",
-                      onPress: async () => {
-                        try {
-                          await api.delete(
-                            `${endpoints.scheduled_recipes}/clear`
-                          );
-                          await fetchData();
-                        } catch (e) {}
-                      },
-                    },
-                  ]
-                );
-              }}
-              style={styles.clearBtn}
-            >
-              <ThemedText style={styles.clearBtnText}>Vider tout</ThemedText>
+            <Pressable onPress={handleResetPress} style={styles.clearBtn} accessibilityRole="button">
+              <ThemedText style={styles.clearBtnText}>Réinitialiser le planning</ThemedText>
             </Pressable>
           </View>
           {content}
