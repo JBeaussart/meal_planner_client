@@ -1,6 +1,8 @@
 import { api, BASE_URL, endpoints, type JsonApiList } from '@/api'
 import { AuthGate } from '@/components/AuthGate'
 import { ThemedText } from '@/components/ThemedText'
+import { PrimaryButton } from '@/components/PrimaryButton'
+import { Link } from 'expo-router'
 import { ThemedView } from '@/components/ThemedView'
 import { IconSymbol } from '@/components/ui/IconSymbol'
 import { useRouter } from 'expo-router'
@@ -134,6 +136,14 @@ export default function RecipesListScreen() {
             <ThemedText type="title" style={styles.headerTitle}>
               Mes Recettes
             </ThemedText>
+            <View style={styles.actionsRow}>
+              <Link href="/(tabs)/recipes/new" asChild>
+                <PrimaryButton
+                  title="Ajouter une recette"
+                  style={styles.addBtn}
+                />
+              </Link>
+            </View>
             <View style={styles.filtersRow}>
               <TextInput
                 value={query}
@@ -185,6 +195,16 @@ const styles = StyleSheet.create({
     borderBottomColor: '#E5E7EB',
   },
   headerTitle: { fontSize: 20, fontWeight: '800' },
+  actionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 10,
+  },
+  addBtn: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+  },
   searchContainer: { marginTop: 10 },
   filtersRow: {
     flexDirection: 'row',

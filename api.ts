@@ -12,6 +12,7 @@ export const api = axios.create({
   baseURL: BASE_URL,
   timeout: 15000,
   headers: {
+    // Default to JSON; will be removed for FormData in interceptor below
     "Content-Type": "application/json",
     Accept: "application/json",
   },
@@ -27,6 +28,15 @@ api.interceptors.request.use((config) => {
   if (authToken) {
     config.headers = config.headers || {};
     config.headers["Authorization"] = authToken;
+  }
+  // If sending FormData (file uploads), let Axios/Env set proper boundaries
+  const isFormData = typeof FormData !== 'undefined' && config.data instanceof FormData;
+  if (isFormData) {
+    // Remove any preset content-type so the runtime can set correct multipart boundary
+    if (config.headers) {
+      delete (config.headers as any)["Content-Type"];
+      delete (config.headers as any)["content-type"];
+    }
   }
   return config;
 });

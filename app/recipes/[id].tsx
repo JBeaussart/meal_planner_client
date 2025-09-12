@@ -3,9 +3,9 @@ import { AuthGate } from '@/components/AuthGate'
 import { ThemedText } from '@/components/ThemedText'
 import { ThemedView } from '@/components/ThemedView'
 import { IconSymbol } from '@/components/ui/IconSymbol'
-import { useLocalSearchParams } from 'expo-router'
+import { Link, useLocalSearchParams } from 'expo-router'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, Image, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, Image, Pressable, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 
 type RecipeAttrs = {
   title: string
@@ -109,6 +109,11 @@ export default function RecipeDetailScreen() {
                 <ThemedText type="title" style={styles.title}>
                   {recipe.attrs.title}
                 </ThemedText>
+                <Link href={{ pathname: '/(tabs)/recipes/[id]/edit', params: { id } }} asChild>
+                  <Pressable style={styles.editBtn} accessibilityLabel="Éditer la recette">
+                    <ThemedText style={styles.editBtnText}>Éditer</ThemedText>
+                  </Pressable>
+                </Link>
               </View>
 
               <View style={styles.blocksContainer}>
@@ -173,8 +178,10 @@ export default function RecipeDetailScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  header: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 10 },
+  header: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   title: { fontSize: 22, fontWeight: '800' },
+  editBtn: { backgroundColor: '#111827', paddingVertical: 8, paddingHorizontal: 12, borderRadius: 10 },
+  editBtnText: { color: '#FFFFFF', fontWeight: '700' },
   meta: { color: '#6B7280', marginTop: 6 },
   image: { width: '100%', height: 240, backgroundColor: '#EEE' },
   imagePlaceholder: { borderWidth: 1, borderColor: '#E5E7EB' },
