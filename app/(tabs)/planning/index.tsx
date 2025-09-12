@@ -17,7 +17,8 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-type SRAttrs = { day_of_week: number | string; created_at: string };
+// Normalized attributes used in the UI list: day_of_week is always a number [0..6]
+type SRAttrs = { day_of_week: number; created_at: string };
 type SR = {
   id: string;
   attrs: SRAttrs;
