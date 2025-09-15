@@ -141,21 +141,26 @@ export default function PlanningTabIndex() {
     const hasRecipe = !!item.recipeId;
     return (
       <Pressable style={[styles.row, hasRecipe ? styles.rowFilled : null]}>
-        <View style={styles.rowLeft}>
+        <View style={styles.leftCol}>
           <ThemedText style={styles.dayText}>{dayName}</ThemedText>
         </View>
-        <View style={styles.rowRight}>
+        <View style={styles.midCol}>
+          {hasRecipe ? (
+            item.recipeTitle ? (
+              <ThemedText style={styles.recipeText} numberOfLines={2}>
+                {item.recipeTitle}
+              </ThemedText>
+            ) : null
+          ) : (
+            <ThemedText style={styles.emptyText}>Aucune recette</ThemedText>
+          )}
+        </View>
+        <View style={styles.actionsCol}>
           {hasRecipe ? (
             <>
-              {item.recipeTitle ? (
-                <ThemedText style={styles.recipeText} numberOfLines={1}>
-                  {item.recipeTitle}
-                </ThemedText>
-              ) : null}
               <Pressable
                 onPress={() =>
-                  item.recipeId &&
-                  router.push(`/(tabs)/recipes/${item.recipeId}`)
+                  item.recipeId && router.push(`/(tabs)/recipes/${item.recipeId}`)
                 }
                 style={{ paddingHorizontal: 6, paddingVertical: 4 }}
                 accessibilityLabel="Voir la recette"
@@ -281,8 +286,7 @@ const styles = StyleSheet.create({
   center: { flex: 1, alignItems: "center", justifyContent: "center" },
   row: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: "flex-start",
     backgroundColor: "#F9FAFB",
     borderWidth: 1,
     borderColor: "#E5E7EB",
@@ -290,7 +294,9 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   rowFilled: { backgroundColor: "#EEF2FF", borderColor: "#C7D2FE" },
-  rowLeft: { flexDirection: "row", alignItems: "center" },
+  leftCol: { width: 88, paddingRight: 8 },
+  midCol: { flex: 1, paddingRight: 8 },
+  actionsCol: { flexDirection: "row", alignItems: "center" },
   dayBadge: {
     width: 28,
     height: 28,
@@ -302,7 +308,6 @@ const styles = StyleSheet.create({
   },
   dayBadgeText: { color: "#FFFFFF", fontSize: 12, fontWeight: "700" },
   dayText: { color: "#111827", fontSize: 16, fontWeight: "700" },
-  rowRight: { flexDirection: "row", alignItems: "center", gap: 8 },
   recipeText: { color: "#111827", fontSize: 14, fontWeight: "600" },
   emptyText: { color: "#6B7280", fontSize: 14, fontStyle: "italic" },
 });

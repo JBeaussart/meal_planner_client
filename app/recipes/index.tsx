@@ -1,10 +1,10 @@
 import { api, BASE_URL, endpoints, type JsonApiList } from "@/api";
 import { AuthGate } from "@/components/AuthGate";
-import { PrimaryButton } from "@/components/PrimaryButton";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Link, useRouter } from "expo-router";
+import { FontAwesome } from "@expo/vector-icons";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   ActivityIndicator,
@@ -207,14 +207,7 @@ export default function RecipesListScreen() {
             <ThemedText type="title" style={styles.headerTitle}>
               📖 Recettes disponibles
             </ThemedText>
-            <View style={styles.actionsRow}>
-              <Link href="/(tabs)/recipes/new" asChild>
-                <PrimaryButton
-                  title="Ajouter une recette"
-                  style={styles.addBtn}
-                />
-              </Link>
-            </View>
+            {/* Floating action button moved to bottom-right; header action removed */}
             <View style={styles.searchContainer}>
               <TextInput
                 value={query}
@@ -274,6 +267,13 @@ export default function RecipesListScreen() {
           </View>
           {content}
         </ThemedView>
+        <Pressable
+          accessibilityLabel="Ajouter une recette"
+          onPress={() => router.push('/(tabs)/recipes/new')}
+          style={[styles.fab, { bottom: 16 + insets.bottom }]}
+        >
+          <FontAwesome name="plus" size={22} color="#FFFFFF" />
+        </Pressable>
       </SafeAreaView>
     </AuthGate>
   );
@@ -294,10 +294,22 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     marginTop: 10,
   },
-  addBtn: {
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderRadius: 12,
+  fab: {
+    position: "absolute",
+    right: 20,
+    bottom: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: "#16A34A",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 4,
+    zIndex: 10,
   },
   searchContainer: { marginTop: 10 },
   filtersRow: {

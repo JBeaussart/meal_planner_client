@@ -3,7 +3,7 @@ import { AuthGate } from '@/components/AuthGate'
 import { ThemedText } from '@/components/ThemedText'
 import { ThemedView } from '@/components/ThemedView'
 import { IconSymbol } from '@/components/ui/IconSymbol'
-import { Link, useLocalSearchParams } from 'expo-router'
+import { Link, useLocalSearchParams, useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Image, Pressable, SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 
@@ -30,6 +30,7 @@ type Step = {
 
 export default function RecipeDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()
+  const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [recipe, setRecipe] = useState<{ id: string; attrs: RecipeAttrs } | null>(null)
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
@@ -98,16 +99,15 @@ export default function RecipeDetailScreen() {
                 ) : (
                   <View style={[styles.image, styles.imagePlaceholder]} />
                 )}
-                <Link href="/(tabs)/recipes" asChild>
-                  <Pressable
-                    style={styles.backOverlay}
-                    accessibilityLabel="Retour aux recettes"
-                    accessibilityRole="button"
-                    hitSlop={8}
-                  >
-                    <IconSymbol name="chevron.left" size={18} color="#111827" />
-                  </Pressable>
-                </Link>
+                <Pressable
+                  onPress={() => router.back()}
+                  style={styles.backOverlay}
+                  accessibilityLabel="Retour"
+                  accessibilityRole="button"
+                  hitSlop={8}
+                >
+                  <IconSymbol name="chevron.left" size={18} color="#111827" />
+                </Pressable>
                 {recipe.attrs.made_by_mom ? (
                   <View style={styles.badge}>
                     <IconSymbol name="chefhat.fill" size={16} color="#FFFFFF" />
