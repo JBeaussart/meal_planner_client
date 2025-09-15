@@ -98,6 +98,16 @@ export default function RecipeDetailScreen() {
                 ) : (
                   <View style={[styles.image, styles.imagePlaceholder]} />
                 )}
+                <Link href="/(tabs)/recipes" asChild>
+                  <Pressable
+                    style={styles.backOverlay}
+                    accessibilityLabel="Retour aux recettes"
+                    accessibilityRole="button"
+                    hitSlop={8}
+                  >
+                    <IconSymbol name="chevron.left" size={18} color="#111827" />
+                  </Pressable>
+                </Link>
                 {recipe.attrs.made_by_mom ? (
                   <View style={styles.badge}>
                     <IconSymbol name="chefhat.fill" size={16} color="#FFFFFF" />
@@ -178,14 +188,33 @@ export default function RecipeDetailScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  header: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  title: { fontSize: 22, fontWeight: '800' },
+  header: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 10, flexDirection: 'row', alignItems: 'flex-start' },
+  title: { fontSize: 22, fontWeight: '800', flex: 1, flexShrink: 1, marginRight: 12 },
   editBtn: { backgroundColor: '#111827', paddingVertical: 8, paddingHorizontal: 12, borderRadius: 10 },
   editBtnText: { color: '#FFFFFF', fontWeight: '700' },
   meta: { color: '#6B7280', marginTop: 6 },
   image: { width: '100%', height: 240, backgroundColor: '#EEE' },
   imagePlaceholder: { borderWidth: 1, borderColor: '#E5E7EB' },
   imageWrapper: { position: 'relative' },
+  backOverlay: {
+    position: 'absolute',
+    top: 12,
+    left: 12,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2,
+    shadowColor: '#000',
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
+  },
   badge: {
     position: 'absolute',
     top: 12,
