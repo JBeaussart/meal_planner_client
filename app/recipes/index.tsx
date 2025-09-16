@@ -3,8 +3,8 @@ import { AuthGate } from "@/components/AuthGate";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { Link, useRouter } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   ActivityIndicator,
@@ -78,7 +78,10 @@ export default function RecipesListScreen() {
           params: { q: query.trim() },
         });
         if (!active) return;
-        const list = res.data.data.map((r) => ({ id: r.id, attrs: r.attributes }));
+        const list = res.data.data.map((r) => ({
+          id: r.id,
+          attrs: r.attributes,
+        }));
         setServerList(list);
       } catch {
         if (active) setServerList(null);
@@ -152,8 +155,12 @@ export default function RecipesListScreen() {
       list = list.filter((r) => {
         const inTitle = normalize(r.attrs.title).includes(q);
         const names =
-          r.attrs.ingredient_names || (r.attrs as any)["ingredient-names"] || [];
-        const inIngredients = names.some((n) => normalize(n).includes(q));
+          r.attrs.ingredient_names ||
+          (r.attrs as any)["ingredient-names"] ||
+          [];
+        const inIngredients = names.some((n: string) =>
+          normalize(n).includes(q)
+        );
         return inTitle || inIngredients;
       });
     }
@@ -269,7 +276,7 @@ export default function RecipesListScreen() {
         </ThemedView>
         <Pressable
           accessibilityLabel="Ajouter une recette"
-          onPress={() => router.push('/(tabs)/recipes/new')}
+          onPress={() => router.push("/(tabs)/recipes/new")}
           style={[styles.fab, { bottom: 16 + insets.bottom }]}
         >
           <FontAwesome name="plus" size={22} color="#FFFFFF" />

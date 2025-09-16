@@ -110,7 +110,7 @@ export default function RecipeDetailScreen() {
                 </Pressable>
                 {recipe.attrs.made_by_mom ? (
                   <View style={styles.badge}>
-                    <IconSymbol name="chefhat.fill" size={16} color="#FFFFFF" />
+                    <IconSymbol name="pawprint.fill" size={16} color="#BE185D" />
                   </View>
                 ) : null}
               </View>
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 12,
     right: 12,
-    backgroundColor: '#EF4444',
+    backgroundColor: '#FDF2F8',
     width: 28,
     height: 28,
     borderRadius: 14,
@@ -230,6 +230,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
     elevation: 3,
+    borderWidth: 1,
+    borderColor: '#F9A8D4',
   },
   blocksContainer: { paddingHorizontal: 20, paddingTop: 8 },
   block: {
