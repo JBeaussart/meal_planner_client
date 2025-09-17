@@ -8,10 +8,10 @@
     "scheme": "client",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
-    },
+    "ios": { "supportsTablet": true },
     "android": {
+      "package": "com.mealplanner.client",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -35,8 +35,10 @@
         }
       ]
     ],
-    "experiments": {
-      "typedRoutes": true
+    "experiments": { "typedRoutes": true },
+    "extra": {
+      "router": {},
+      "eas": { "projectId": "be7e3359-3fe8-4686-ae42-0ba53983dc18" }
     }
   }
 }
